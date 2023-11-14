@@ -8,13 +8,15 @@ function App() {
   const [st4, setST4] = useState(0);
   const [st5, setST5] = useState('');
   const [st6, setST6] = useState('');
-  const [st7, setST7] = useState({r:0, g:0, b:0});
-  const [st8, setST8] = useState();
-  const [st9, setST9] = useState();
-  const [st10, setST10] = useState();
+  const [st7, setST7] = useState([]);
+  const [st8, setST8] = useState('');
+  const [st9, setST9] = useState('');
+  const [st10, setST10] = useState([]);
 
   const ref1 = React.createRef();
   const ref7 = React.createRef();
+  const ref8 = React.createRef();
+  const ref10 = React.createRef();
 
   function task1(e) {
     const val = ref1.current.value;
@@ -56,26 +58,49 @@ function App() {
       return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
     }
 
-    setST7({
-      r: getRandomInt(0, 255),
-      g: getRandomInt(0, 255),
-      b: getRandomInt(0, 255)
-    });
+    setST7([
+      getRandomInt(0, 255), 
+      getRandomInt(0, 255), 
+      getRandomInt(0, 255)
+    ]);
 
-    const {r,g,b} = st7;
+    const [r,g,b] = st7;
     ref7.current.style.backgroundColor = `rgb(${r},${g},${b})`;
   }
 
   function task8() {
+    const val = ref8.current.value;
+
+    if (!val.length) {
+      setST8('');
+      return;
+    }
+
+    const last = val.charCodeAt(val.length-1);
+    const rest = last > 47 && last < 59 ? '1': '0';
+
+    if (st8.length > val.length) {
+      setST8((r)=> r.slice(0, -1));
+      return;
+    }
+
+    setST8((r) => r + rest);
 
   }
 
-  function task9() {
-
+  function task9(e) {
+    const val = e.target.value;
+    setST9(val);
   }
 
   function task10() {
+    const val = ref10.current.value.trim();
+    if (val === '') {
+      return
+    }
 
+    setST10((r) => [...r, +val])
+    ref10.current.value = '';
   }
 
   return (
@@ -132,7 +157,7 @@ function App() {
       
       <section>
         <h2>Task 8</h2>
-        <input type="text" className="task-8" onKeyUp={task8}></input>
+        <input type="text" className="task-8" onKeyUp={task8} ref={ref8}></input>
         <div>{st8}</div>
       </section>
       
@@ -144,7 +169,7 @@ function App() {
       
       <section>
         <h2>Task 10</h2>
-        <input type="number" className="i-10"></input>
+        <input type="number" className="i-10" ref={ref10}></input>
         <button className="task-10" onClick={task10}>Push</button>
         <div>Тут выводим - форма вывода любая!<br />{st10}</div>
       </section>
