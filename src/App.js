@@ -4,6 +4,16 @@ import { useState } from 'react';
 
 
 function App() {
+  const [st1, setST1] = useState();
+  const [st2, setST2] = useState();
+  const [st3, setST3] = useState();
+  const [st4, setST4] = useState();
+  const [st5, setST5] = useState();
+  const [st6, setST6] = useState();
+  const [st7, setST7] = useState();
+  const [st8, setST8] = useState();
+  const [st9, setST9] = useState();
+  const [st10, setST10] = useState();
 
   function task1() {
 
@@ -41,7 +51,7 @@ function App() {
       <h1>События</h1>
       <section>
         <h2>Task 1</h2>
-		<input type="text"/>
+		    <input type="text"/>
         <button className="task-1">Push</button>
         <div>{st1}</div>
       </section>
